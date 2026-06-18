@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: departamentopolicial
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASS}
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+
