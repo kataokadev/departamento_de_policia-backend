@@ -27,7 +27,7 @@ public class RelatorioEntity {
     @Column(nullable = false)
     private String descricao;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "policial_id")
     private PolicialEntity policial;
 

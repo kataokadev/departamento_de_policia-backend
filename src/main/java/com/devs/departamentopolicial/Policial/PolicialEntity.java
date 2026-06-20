@@ -3,6 +3,7 @@ package com.devs.departamentopolicial.Policial;
 import com.devs.departamentopolicial.Ocorrencia.OcorrenciaEntity;
 import com.devs.departamentopolicial.Relatorios.RelatorioEntity;
 import com.devs.departamentopolicial.Viatura.ViaturaEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,13 +36,15 @@ public class PolicialEntity {
     @Column(length = 50, nullable = false)
     private PolicialStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "viatura_id")
     private ViaturaEntity viatura;
 
     @ManyToMany(mappedBy = "policiais")
+    @JsonIgnore
     private List<OcorrenciaEntity> ocorrencias;
 
-    @OneToOne(mappedBy = "policial")
+    @OneToOne(mappedBy = "policial", fetch = FetchType.LAZY)
+    @JsonIgnore
     private RelatorioEntity relatorio;
 }
