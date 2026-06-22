@@ -1,6 +1,7 @@
 package com.devs.departamentopolicial.Veiculo;
 
 import com.devs.departamentopolicial.Exceptions.NotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class VeiculoService {
         return veiculo;
     }
 
+    @Transactional
     public VeiculoEntity atualizarVeiculoPorId(UUID id,VeiculoEntity veiculo) {
         VeiculoEntity veiculoAtualizado = veiculoRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Esse Id não corresponde ao Veiculo"));

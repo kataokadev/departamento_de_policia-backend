@@ -3,6 +3,7 @@ package com.devs.departamentopolicial.PessoasEnvolvidas;
 import com.devs.departamentopolicial.Exceptions.NotFoundException;
 import com.devs.departamentopolicial.Veiculo.VeiculoEntity;
 import com.devs.departamentopolicial.Veiculo.VeiculoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class PessoasEnvolvidasService {
         return pessoasEnvolvidasRepository.findById(id).orElseThrow(() -> new NotFoundException("Esse ID não corresponde a nenhuma pessoa"));
     }
 
+    @Transactional
     public PessoasEnvolvidasEntity atualizarPessoasPorId(UUID id,PessoasEnvolvidasEntity pessoasEnvolvidasEntity) {
         PessoasEnvolvidasEntity pessoaAtualizada = pessoasEnvolvidasRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Esse ID não corresponde a nenhuma pessoa"));

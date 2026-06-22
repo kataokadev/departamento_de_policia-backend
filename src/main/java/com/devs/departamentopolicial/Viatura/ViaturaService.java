@@ -2,6 +2,7 @@ package com.devs.departamentopolicial.Viatura;
 
 import com.devs.departamentopolicial.Exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -44,6 +45,7 @@ public class ViaturaService {
         return viaturas;
     }
 
+    @Transactional
     public ViaturaEntity atualizarViaturaPorId(UUID id,ViaturaEntity viaturaEntity) {
         ViaturaEntity viaturaAtualizado = viaturaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Nenhuma viatura encontrada"));

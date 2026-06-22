@@ -5,6 +5,7 @@ import com.devs.departamentopolicial.Ocorrencia.OcorrenciaEntity;
 import com.devs.departamentopolicial.Ocorrencia.OcorrenciaRepository;
 import com.devs.departamentopolicial.Policial.PolicialEntity;
 import com.devs.departamentopolicial.Policial.PolicialRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class RelatorioService {
                 .orElseThrow(() -> new NotFoundException("Esse Id não corresponde a nenhum relatorio"));
     }
 
+    @Transactional
     public RelatorioEntity atualizarRelatorioPorId(UUID id, RelatorioEntity relatorioEntity) {
         RelatorioEntity relatorioAtualizado = relatorioRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Esse Id não corresponde a nenhum relatorio"));
