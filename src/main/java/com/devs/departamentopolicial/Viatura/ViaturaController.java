@@ -37,7 +37,7 @@ public class ViaturaController {
         return ResponseEntity.status(HttpStatus.OK).body(viatura);
     }
 
-    @GetMapping("/placa")
+    @GetMapping("/placa/{placa}")
     public ResponseEntity<ViaturaEntity> buscarViaturaPorPlaca(@PathVariable String placa) {
         ViaturaEntity viatura = viaturaService.buscarViaturaPorPlaca(placa);
         return ResponseEntity.status(HttpStatus.OK).body(viatura);

@@ -22,7 +22,7 @@ public class RelatorioEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private LocalDateTime data;
+    private LocalDateTime data = LocalDateTime.now();
 
     @Column(nullable = false)
     private String descricao;
