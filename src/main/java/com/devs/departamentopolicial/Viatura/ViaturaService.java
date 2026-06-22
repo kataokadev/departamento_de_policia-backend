@@ -19,16 +19,16 @@ public class ViaturaService {
         return viaturaRepository.save(viaturaEntity);
     }
 
-    public List<ViaturaEntity> buscarViaturas() {
+    public List<ViaturaEntity> listarViaturas() {
         return viaturaRepository.findAll();
     }
 
-    public ViaturaEntity buscarViaturaPorId(UUID idViatura) {
+    public ViaturaEntity listarViaturaPorId(UUID idViatura) {
         return viaturaRepository.findById(idViatura)
                 .orElseThrow(() -> new NotFoundException("Nenhum Viatura encontrada"));
     }
 
-    public ViaturaEntity buscarViaturaPorPlaca(String placa) {
+    public ViaturaEntity listarViaturaPorPlaca(String placa) {
         ViaturaEntity viaturaEntity = viaturaRepository.findByPlaca(placa);
         if(viaturaEntity == null) {
             throw new NotFoundException("Nenhuma viatura encontrada");
@@ -36,7 +36,7 @@ public class ViaturaService {
         return viaturaEntity;
     }
 
-    public List<ViaturaEntity> buscarViaturasPorModelo(String modelo) {
+    public List<ViaturaEntity> listarViaturasPorModelo(String modelo) {
         List<ViaturaEntity> viaturas = viaturaRepository.findByModelo(modelo);
         if(viaturas.isEmpty()) {
             throw new NotFoundException("Nenhuma viatura encontrada");

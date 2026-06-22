@@ -26,20 +26,20 @@ public class ViaturaController {
     @GetMapping
     public ResponseEntity<List<ViaturaEntity>> listarViaturas(@RequestParam(required = false) String modelo) {
         List<ViaturaEntity> viaturas = (modelo != null)
-                ? viaturaService.buscarViaturasPorModelo(modelo)
-                : viaturaService.buscarViaturas();
+                ? viaturaService.listarViaturasPorModelo(modelo)
+                : viaturaService.listarViaturas();
         return ResponseEntity.status(HttpStatus.OK).body(viaturas);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ViaturaEntity> buscarViaturaPorId(@PathVariable UUID id) {
-        ViaturaEntity viatura = viaturaService.buscarViaturaPorId(id);
+        ViaturaEntity viatura = viaturaService.listarViaturaPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(viatura);
     }
 
     @GetMapping("/placa/{placa}")
     public ResponseEntity<ViaturaEntity> buscarViaturaPorPlaca(@PathVariable String placa) {
-        ViaturaEntity viatura = viaturaService.buscarViaturaPorPlaca(placa);
+        ViaturaEntity viatura = viaturaService.listarViaturaPorPlaca(placa);
         return ResponseEntity.status(HttpStatus.OK).body(viatura);
     }
 
