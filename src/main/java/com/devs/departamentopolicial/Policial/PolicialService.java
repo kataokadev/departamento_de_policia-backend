@@ -20,44 +20,55 @@ public class PolicialService {
         this.viaturaRepository = viaturaRepository;
     }
 
-    public PolicialEntity addPolicial(PolicialEntity policial) {
-        if (policial.getViatura() == null || policial.getViatura().getId() == null) {
+    public PolicialEntity adicionarPolicial(PolicialEntity policialEntity) {
+        if (policialEntity.getViatura() == null || policialEntity.getViatura().getId() == null) {
             throw new IllegalArgumentException("É necessário informar uma viatura válida");
         }
         ViaturaEntity viatura = viaturaRepository.findById(policial.getViatura().getId())
                 .orElseThrow(() -> new NotFoundException("Esse Id não corresponde a nenhuma viatura"));
-        policial.setViatura(viatura);
+        policialEntity.setViatura(viatura);
 
-        return policialRepository.save(policial);
+        return policialRepository.save(policialEntity);
     }
 
-    public List<PolicialEntity> buscarPoliciais() {
+    public List<PolicialEntity> listarPoliciais() {
         return policialRepository.findAll();
     }
 
-    public PolicialEntity buscarPoliciaisPorId(UUID id) {
+    public PolicialEntity listarPoliciaisPorId(UUID id) {
         return policialRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Esse Id não corresponde a nenhum policial"));
     }
 
     @Transactional
-    public PolicialEntity atualizarPoliciaisPorId(UUID id, PolicialEntity policial) {
-        PolicialEntity policialEntity = policialRepository.findById(id)
+    public PolicialEntity atualizarPoliciaisPorId(UUID id, PolicialEntity policialEntity) {
+        PolicialEntity policialAtualizado = policialRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Esse Id não corresponde a nenhum policial"));
-        if (policial.getNome() != null) {
-            policialEntity.setNome(policial.getNome());
+        if (policialEntity.getNome() != null) {
+            policialAtualizado.setNome(policialEntity.getNome());
         }
-        if(policial.getCargo() != null) {
-            policialEntity.setCargo(policial.getCargo());
+        if(policialEntity.getCargo() != null) {
+            policialAtualizado.setCargo(policialEntity.getCargo());
         }
-        if (policial.getStatus() != null) {
-            policialEntity.setStatus(policial.getStatus());
+        if (policialEntity.getStatus() != null) {
+            policialAtualizado.setStatus(policialEntity.getStatus());
         }
-        if (policial.getViatura()  != null && policial.getViatura().getId() != null) {
-            ViaturaEntity viatura = viaturaRepository.findById(policial.getViatura().getId())
-                    .orElseThrow(() -> new NotFoundException("Esse Id não corresponde a nenhum viatura"));
-                    policialEntity.setViatura(viatura);
-        }
+        validarPolicial(policialEntity);
+        ViaturaEntity viatura = buscarViaturaPorId(policialEntity);
+
+        policialAtualizado.setViatura(viatura);
         return policialRepository.save(policialEntity);
+    }
+
+    // metodos privados
+    public void validarPolicial(PolicialEntity policial) {
+        if (policial.getViatura()  != null || policial.getViatura().getId() != null) {
+            throw new IllegalArgumentException("É necessario informar uma viatura válida");
+        }
+    }
+
+    public ViaturaEntity buscarViaturaPorId(PolicialEntity policial) {
+        return viaturaRepository.findById(policial.getViatura().getId())
+                .orElseThrow(() -> new NotFoundException("Esse Id não corresponde a nenhum viatura"));
     }
 }
